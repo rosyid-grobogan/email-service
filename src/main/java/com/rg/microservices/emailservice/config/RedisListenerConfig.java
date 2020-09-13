@@ -49,6 +49,8 @@ public class RedisListenerConfig {
     public RedisMessageListenerContainer redisMessageListenerContainer() {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(redisConnectionFactory());
+        // register messageListenerAdapter
+        container.addMessageListener(messageListenerAdapter(), channelTopic());
 
         return container;
     }
