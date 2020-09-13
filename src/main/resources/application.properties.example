@@ -7,7 +7,7 @@ spring.mail.host=smtp.gmail.com
 spring.mail.username=
 spring.mail.password=
 spring.mail.properties.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true
+spirng.mail.properties.mail.smtp.starttls.enable=true
 
 # redis
 spring.redis.host=localhost
