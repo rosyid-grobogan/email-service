@@ -14,7 +14,6 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 @Configuration
-@EnableRedisRepositories
 public class RedisListenerConfig {
 
     @Value("${spring.redis.host:localhost}")
@@ -40,6 +39,7 @@ public class RedisListenerConfig {
     public ChannelTopic channelTopic() {
         return new ChannelTopic(redisChannelName);
     }
+
     @Bean
     public MessageListener messageListenerAdapter() {
         return new MessageListenerAdapter(redisMessageSubscriber);

@@ -1,6 +1,6 @@
 package com.rg.microservices.emailservice.service;
 
-import com.fasterxml.jackson.core.JsonParseException;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rg.microservices.emailservice.dto.EmailDto;
@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @Service
 public class RedisMessageSubscriber implements MessageListener {
+
     private final EmailService emailService;
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     public RedisMessageSubscriber(EmailService emailService) {
@@ -23,9 +24,10 @@ public class RedisMessageSubscriber implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] bytes) {
-        log.debug("{}", message);
-        String msg = message.toString();
         try {
+            String msg = message.toString();
+            log.debug("{}", message);
+
             EmailDto emailDto = objectMapper.readValue(msg, EmailDto.class);
             emailService.sendEmail(emailDto.getTo(), emailDto.getSubject(), emailDto.getBody());
         } catch (JsonProcessingException e) {
